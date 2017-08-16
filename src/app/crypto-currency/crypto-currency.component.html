@@ -1,0 +1,215 @@
+<!--navbar-->
+<nav class="navbar navbar-light" style="background-color: #f7f7f7;">
+  <a class="navbar-brand" href="#">Qiaoran</a>
+  <div class="mx-auto" >
+      <h3>加密货币实时查询</h3>
+  </div>
+</nav>
+
+<a href="javascript:" id="return-to-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+<!-- top row -->
+<div class="container top-buffer">
+    <div class="row justify-content-between">
+      <!-- 货币切换 -->
+      <div class="col-6">
+        <form class="form-inline">
+        <label class="mr-sm-4" for="CurrencySwitch">切换货币:</label>
+            <select  #searchTerm class="custom-select mb-2 mr-sm-2 mb-sm-0" id="CurrencySwitch">
+              <option value="AUD">AUD 澳元</option>
+              <option value="BRL">BRL 巴西雷亚尔</option>
+              <option value="CAD">CAD 加元</option>
+              <option value="CHF">CHF 瑞士法郎</option>
+              <option value="CNY">CNY 人民币</option>
+              <option value="EUR">EUR 欧元</option>
+              <option value="GBP">GBP 英镑</option>
+              <option value="HKD">HKD 港币</option>
+              <option value="IDR">IDR 印尼盾</option>
+              <option value="INR">INR 印度卢比</option>
+              <option value="JPY">JPY 日元</option>
+              <option value="KRW">KRW 韩元</option>
+              <option value="MXN">MXN 墨西哥比索</option>
+              <option value="RUB">RUB 俄罗斯卢布</option>
+            </select>
+            <button type="button" class="btn btn-outline-primary" (click)="performSearch(searchTerm)">确定</button>
+        </form>
+      </div>
+      <!-- search -->
+      <div class="form-group col-5">
+        <div class="row no-gutters justify-content-end">
+          <div class="col-7"> 
+            <label>更新时间: {{ CryptoCurrency[0].last_updated * 1000| date:'yyyy/MM/dd h:mma' }} </label>
+          </div>
+          <div class="col-5">  
+            <input type="text" class="search form-control" placeholder="搜索">
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- table -->
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col col-lg-1">
+    </div>
+    <div class="col-12 col-md-auto">
+      <table class="table results table-hover">
+        <thead class="thead-default">
+            <tr>
+              <!-- table header -->
+              <th data-sort="int" class="text-center">市值排名 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th data-sort="string" class="text-center">名字 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th data-sort="float" class="text-center">美元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="CryptoCurrency[0].price_aud" data-sort="int" class="text-center">澳元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'BRL'" data-sort="int" class="text-center">巴西雷亚尔价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'CAD'" data-sort="int" class="text-center">加元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'CHF'" data-sort="int" class="text-center">瑞士法郎价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'CNY'" data-sort="int" class="text-center">人民币价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'EUR'" data-sort="int" class="text-center">欧元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'GBP'" data-sort="int" class="text-center">英镑价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'HKD'" data-sort="int" class="text-center">港币价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'IDR'" data-sort="int" class="text-center">印尼盾价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'INR'" data-sort="int" class="text-center">印度卢比价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'JPY'" data-sort="int" class="text-center">日元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'KRW'" data-sort="int" class="text-center">韩元价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'MXN'" data-sort="int" class="text-center">墨西哥比索价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th *ngIf="searchTerm.value == 'RUB'" data-sort="int" class="text-center">俄罗斯卢布价格 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th data-sort="float" class="text-center">一小时变化 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th data-sort="int" class="text-center">24小时内变化 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>
+              <th data-sort="int" class="text-center">一周变化 <i class="fa fasort fa-sort" aria-hidden="true"></i></th>             
+            </tr>
+            <tr class="warning no-result">
+              <td colspan="6"><i class="fa fa-warning"></i>无结果</td>
+            </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let item of CryptoCurrency | paginate: { itemsPerPage: 100, currentPage: p }">
+            <tr>
+              <!-- table content -->
+              <td class="text-center tableRowHeight">{{ item.rank }}</td>
+              <td class="text-center tableRowHeight">
+                <button type="button" class="btn btn-link tableContentName" data-toggle="modal" data-target="#InfoModal"
+                (click)="onClick(item,lgModal)">
+                  {{ item.name }}
+                </button>
+              </td>
+              <td class="text-center tableRowHeight">{{ item.price_usd }}</td>
+              <td *ngIf="item.price_aud" class="text-center"> {{ item.price_aud }}</td>
+              <td *ngIf="item.price_brl" class="text-center"> {{ item.price_brl }}</td>
+              <td *ngIf="item.price_cad" class="text-center"> {{ item.price_cad }}</td>
+              <td *ngIf="item.price_chf" class="text-center"> {{ item.price_chf }}</td>
+              <td *ngIf="item.price_cny" class="text-center"> {{ item.price_cny }}</td>
+              <td *ngIf="item.price_eur" class="text-center"> {{ item.price_eur }}</td>
+              <td *ngIf="item.price_gbp" class="text-center"> {{ item.price_gbp }}</td>
+              <td *ngIf="item.price_hkd" class="text-center"> {{ item.price_hkd }}</td>
+              <td *ngIf="item.price_idr" class="text-center"> {{ item.price_idr }}</td>
+              <td *ngIf="item.price_inr" class="text-center"> {{ item.price_inr }}</td>
+              <td *ngIf="item.price_jpy" class="text-center"> {{ item.price_jpy }}</td>
+              <td *ngIf="item.price_krw" class="text-center"> {{ item.price_krw }}</td>
+              <td *ngIf="item.price_mxn" class="text-center"> {{ item.price_mxn }}</td>
+              <td *ngIf="item.price_rub" class="text-center"> {{ item.price_rub }}</td>
+              <td class="text-center tableRowHeight" [ngClass]="{'negative' : item.percent_change_1h < 0, 'positive' : item.percent_change_1h > 0 }">{{ item.percent_change_1h }}</td>
+              <td class="text-center tableRowHeight" [ngClass]="{'negative' : item.percent_change_24h < 0, 'positive' : item.percent_change_24h > 0 }">{{ item.percent_change_24h }}</td>
+              <td class="text-center tableRowHeight" [ngClass]="{'negative' : item.percent_change_7d < 0, 'positive' : item.percent_change_7d > 0 }"> {{item.percent_change_7d }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>  
+    </div>
+    <div class="col col-lg-1">
+    </div>
+  </div>
+  <!-- pagination -->
+  <div class="row justify-content-end">
+    <div class="col-8">
+    </div>
+    <div class="col-4">
+      <pagination-controls class="pull-right" (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>
+    
+
+
+<!-- footer -->
+<footer class="footer">
+  <div class="container">
+    <p>数据来源<a href="https://coinmarketcap.com/">CoinMarketCap</a>，每5分钟更新一次</p>
+  </div>
+</footer>
+
+<!-- Modal -->
+<div class="modal fade" id="InfoModal" tabindex="-1" role="dialog" aria-labelledby="InfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modaltitle" id="InfoModalLabel" >{{selecteditem?.name}}币详细信息</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row justify-content-center">
+            <form>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">市值排名:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.rank}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">美元价格:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.price_usd}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">比特币价格:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.price_btc}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">美元市值:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.market_cap_usd}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">可用供量:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.available_supply}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">总供量:</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.total_supply}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">一小时变化(%):</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.percent_change_1h}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">一天变化(%):</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.percent_change_24h}}>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-6 col-form-label">一周变化(%):</label>
+                <div class="col-sm-6">
+                  <input type="text" readonly class="form-control-plaintext" value={{selecteditem?.percent_change_7d}}>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

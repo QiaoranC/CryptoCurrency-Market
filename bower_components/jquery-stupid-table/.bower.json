@@ -1,0 +1,36 @@
+{
+  "name": "jquery-stupid-table",
+  "version": "1.1.2",
+  "homepage": "https://github.com/joequery/Stupid-Table-Plugin",
+  "authors": [
+    "Joseph McCullough"
+  ],
+  "description": "A stupidly small and simple jQuery table sorter plugin",
+  "main": "stupidtable.js",
+  "dependencies": {
+    "jquery": ">= 1.7.0"
+  },
+  "keywords": [
+    "jquery",
+    "table",
+    "sort"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1.1.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.1.2",
+    "commit": "27ab1ff1d8bb3ee75b0c8ffe6a8e7e5f7d126890"
+  },
+  "_source": "https://github.com/joequery/Stupid-Table-Plugin.git",
+  "_target": "^1.1.2",
+  "_originalSource": "jquery-stupid-table",
+  "_direct": true
+}
