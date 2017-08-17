@@ -6,6 +6,27 @@
     color: green;
 }
 
+.navtitle{
+  margin-bottom: 0;
+  color: white;
+}
+
+.navtitleS{
+  font-size: 0.5em;
+}
+
+.navtitleul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.navtitleli{
+  float: left;
+  padding-left: 1em;
+}
+
 .results tr[visible='false'],
 
 .no-result{
@@ -30,7 +51,7 @@
 }
 
 .modal-content{
-  border-top: 3px solid blue;
+  border-top: 6px solid #E9ECEF;
 }
 
 .modaltitle{
