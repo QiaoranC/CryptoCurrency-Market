@@ -4,7 +4,7 @@
 - API来源[CoinMarketCap](https://coinmarketcap.com/)
 - 已使用now部署上线 [地址](https://dist-bhcibdbjdk.now.sh/)
 
-## 概览：
+## 概览 
 - 主界面,排列，探索
 <img width="1259" alt="2017-08-17 14 44 55" src="https://user-images.githubusercontent.com/29221630/29399459-e9c6fd3e-835b-11e7-9885-fc603247aacd.png">
 
